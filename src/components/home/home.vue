@@ -12,7 +12,7 @@
                                 <div class="scroll-content">
                                     <ul class="category-list">
                                         <li class="list-item" v-for="(icons,index1) in item.goodsCategoryDetails" :key="index1">
-                                            <img :src="'http://192.168.22.33:8080'+icons.icon" :alt="icons.id">
+                                            <img :src="'http://cloudcom.org.cn'+icons.icon" :alt="icons.id">
                                             <span>
                                                 {{icons.title}}
                                             </span>
