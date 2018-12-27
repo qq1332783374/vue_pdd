@@ -157,8 +157,8 @@ export default {
 	overflow: hidden;
 }
 .shop{
-   position: absolute;
-	top: 60px;
+    position: absolute;
+    top: 60px;
 	bottom: 50px;
 	width: 100%;
 	display: flex;

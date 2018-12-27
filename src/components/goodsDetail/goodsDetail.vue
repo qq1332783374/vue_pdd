@@ -165,6 +165,7 @@ export default {
 .goodsDetail{
     width: 100%;
     overflow: hidden;
+    overflow-y: scroll;
 }
 .detailScroll{
     width: 100%;

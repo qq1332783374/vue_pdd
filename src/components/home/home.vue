@@ -12,7 +12,7 @@
                                 <div class="scroll-content">
                                     <ul class="category-list">
                                         <li class="list-item" v-for="(icons,index1) in item.goodsCategoryDetails" :key="index1">
-                                            <img :src="'http://192.168.22.33:8080'+icons.icon" :alt="icons.id">
+                                            <img :src="'http://cloudcom.org.cn'+icons.icon" :alt="icons.id">
                                             <span>
                                                 {{icons.title}}
                                             </span>
@@ -60,7 +60,7 @@ import hot from './pages/hot/hot'
 export default {
     name: 'test',
     components: {
-        hot
+        hot,
     },
     data() {
         return {
@@ -114,6 +114,17 @@ export default {
 </script>
 
 <style scoped>
+.van-tabs {
+    overflow-y: scroll;
+}
+.van-tabs__wrap {
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    overflow: hidden;
+    position: fixed;
+}
 .van-tabs .van-tab__pane{
     background: #f5f5f5;
 }

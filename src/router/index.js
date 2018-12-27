@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 //主页
 import home from 'components/home/home'
+import test from 'components/home/test'
 // 商品详情
 import goodsDetail from 'components/goodsDetail/goodsDetail'
 // 推荐
@@ -28,12 +29,16 @@ import login from 'components/login/login'
 import orders from 'components/orders/orders'
 // 全部订单
 import allOrders from 'components/orders/pages/allOrders/allOrders'
-
-
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/test',
+      name: 'test',
+      component: test,
+      meta: {showBottomTabBar: true}
+    },
     {
       path: '/home',
       name: 'home',

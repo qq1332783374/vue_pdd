@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/pdd':{
-        target:'http://cloudcom.org.cn',
+        target:'http://192.168.22.33:8080',
         changeOrigin: true
       }
     },

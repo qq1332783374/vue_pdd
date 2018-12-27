@@ -3,53 +3,47 @@
         <div class="shopCart-header">
             <span>购物车</span><span>({{_getShopCartData.length}})</span>
         </div>
-        <div class="shopCart-content">
-            <div class="scrollY">
-                <div>
-                     <div class="shopCart-list" v-if="_getShopCartData.length != 0">
-                        <div class="item" v-for="(item,index) in _getShopCartData" :key="index">
-                            <div class="check">
-                                <label class="checkBox">
-                                    <input type="checkbox" v-model="checkItem"  @change="selectOne(index,item)" :value="item.cartId">
-                                </label>
-                            </div>
-                            <div class="item-content">
-                                <div class="item-imgs">
-                                    <img :src="item.goods.imageUrl" :alt="item.goods.imageUrl">
-                                </div>
-                                <div class="item-info">
-                                    <p class="item-title">{{item.goods.goodsName}}</p>
-                                    <div class="item-select">
-                                        <!-- <div>
-                                            <label class="item-select-title">单价:</label>
-                                            <span style="color:#f00;">{{item.goodsPrice}}￥</span>
-                                        </div> -->
-                                        <div>
-                                            <label class="item-select-title">规格:</label>
-                                            <span>{{item.goodsSpec}}</span>
-                                        </div>    
-                                    </div>
-                                    <div class="itme-numCount">
-                                        <span class="price">￥{{item.goodsMoney}}</span>
-                                        <div class="item-count-group">
-                                            <span class="btns" @click="sub(item)">-</span>
-                                            <input type="text" v-model="item.goodsNumber">
-                                            <span class="btns" @click="add(item)">+</span>
-                                        </div>
-                                    </div>
-                                </div>
+        <div class="shopCart-list" v-if="_getShopCartData.length != 0">
+            <div class="item" v-for="(item,index) in _getShopCartData" :key="index">
+                <div class="check">
+                    <label class="checkBox">
+                        <input type="checkbox" v-model="checkItem"  @change="selectOne(index,item)" :value="item.cartId">
+                    </label>
+                </div>
+                <div class="item-content">
+                    <div class="item-imgs">
+                         <img :src="item.goods.imageUrl" :alt="item.goods.imageUrl">
+                    </div>
+                    <div class="item-info">
+                        <p class="item-title">{{item.goods.goodsName}}</p>
+                        <div class="item-select">
+                            <!-- <div>
+                                <label class="item-select-title">单价:</label>
+                                <span style="color:#f00;">{{item.goodsPrice}}￥</span>
+                            </div> -->
+                            <div>
+                                <label class="item-select-title">规格:</label>
+                                <span>{{item.goodsSpec}}</span>
+                            </div>    
+                        </div>
+                        <div class="itme-numCount">
+                            <span class="price">￥{{item.goodsMoney}}</span>
+                            <div class="item-count-group">
+                                <span class="btns" @click="sub(item)">-</span>
+                                <input type="text" v-model="item.goodsNumber">
+                                <span class="btns" @click="add(item)">+</span>
                             </div>
                         </div>
                     </div>
-                    <div class="no-list" v-else>
-                        <i class="iconfont icon-gouwuche"></i>
-                        <p>暂无商品</p>
-                    </div>
-                    <!-- 推荐商品 -->
-                    <recommend-list></recommend-list>
                 </div>
             </div>
         </div>
+        <div class="no-list" v-else>
+            <i class="iconfont icon-gouwuche"></i>
+            <p>暂无商品</p>
+        </div>
+        <!-- 推荐商品 -->
+        <recommend-list></recommend-list>
         <!-- 结算 -->
         <div class="count">
             <div class="selectAll">
@@ -81,7 +75,6 @@
 </template>
 
 <script>
-import BScroll from 'better-scroll'
 import recommendList from 'components/common/recommendList'
 import { MessageBox } from 'mint-ui'
 import { Toast } from 'mint-ui';
@@ -96,7 +89,7 @@ export default {
         }
     },
     components: {
-        recommendList
+        recommendList,
     },
     computed: {
         _getDefaultAddress() {  // 默认地址
@@ -129,13 +122,6 @@ export default {
         },
     },
     methods: {
-        _initScroll() {
-            this.scrollY = new BScroll('.scrollY', {
-                probeType:3,
-				click: true,
-				scrollY: true,
-            })
-        },
         add(item) {  // 加
             var num = 0
             item.goodsNumber++
@@ -260,13 +246,6 @@ export default {
             this.$store.dispatch('getAddress',this.$store.getters.getLoginInfo.userInfo.uuid)
         }
     },
-    mounted() {
-        setTimeout(()=>{
-            this.$nextTick(()=>{
-                this._initScroll()
-            })
-        },1000)
-    },
     created() {
         this._isLogin()
         // 获取购物车信息
@@ -278,32 +257,6 @@ export default {
 </script>
 
 <style scoped>
-.shopCart{
-    width: 100%;
-	height: 100%;
-	position: relative;
-	background: #f5f5f5;
-	overflow: hidden;
-}
-.shopCart-header{
-    padding: 15px;
-    box-sizing: border-box;
-    text-align: center;
-    background: #fff;
-    color: #666;
-    font-size: 18px;
-}
-.shopCart-content{
-    position: absolute;
-    top: 60px;
-	bottom: 50px;
-	width: 100%;
-}
-.scrollY{
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-}
 .del{
     color: #969696;
     margin-left: 5px;
@@ -332,6 +285,14 @@ label.item-select-title {
 }
 .no-list i{
     font-size: 78px;
+}
+.shopCart-header{
+    padding: 15px;
+    box-sizing: border-box;
+    text-align: center;
+    background: #fff;
+    color: #666;
+    font-size: 18px;
 }
 .item {
     display: flex;
