@@ -179,7 +179,6 @@ export default {
                     shopCartArr: arr,
                     settlementInfo: settlementInfo
                 }
-                console.log(obj)
                 this.$store.dispatch('settlement', obj)
                 if(this._getShopCartData.length == 0) {
                     this.ckeckedAll = false

@@ -120,190 +120,205 @@ export default {
             this.checkedGoods.size = types.value
         },
         joinShopCart() { // 加入购物
-            if(this.$refs.size&&this.$refs.test){
-                this.$refs.test.forEach((item,index) => {
-                    if(item.className == 'active1') {
-                        this.isHaveClassName.active1 = item.className
-                        return
-                    }
-                })
-                this.$refs.size.forEach((item,index) =>{
-                    if(item.className == 'active2') {
-                        this.isHaveClassName.active2 = item.className
-                        return
-                    }
-                })
-                if(this.isHaveClassName.active1 != 'active1' ) {
-                     MessageBox('您好', '请选择正确的商品规格')
-                }else if(this.isHaveClassName.active2 != 'active2') {
-                    MessageBox('您好', '请选择正确的商品规格')
-                }else {
-                    var obj = {
-                        uuid: this.$store.getters.getLoginInfo.userInfo.uuid,
-                        goodsId: this.$route.query.goodsId,
-                        goodsNumber: this.count,
-                        goodsPrice: this.checkedGoods.price,
-                        goodsSpec: this.checkedGoods.type + this.checkedGoods.size
-                    }
-                    axios.post('/pdd/createShoppingCart',obj).then((res) =>{
-                        if(res.data == 'ok') {
-                            MessageBox.confirm('成功加入，是否前去查看?').then(() =>{
-                                this.$router.push({path:'/shopCart'})
-                            }).catch(() =>{
-
-                            })
+            if(this.getLoginInfo.isLogin) {
+                if(this.$refs.size&&this.$refs.test){
+                    this.$refs.test.forEach((item,index) => {
+                        if(item.className == 'active1') {
+                            this.isHaveClassName.active1 = item.className
+                            return
                         }
-                    }).catch((e) =>{
-                        console.log(e)
                     })
-                }
-            }
-            if(!this.$refs.size){
-                this.$refs.test.forEach((item,index) =>{
-                    if(item.className == 'active1') {
-                        this.isHaveClassName.active1 = item.className
-                        return
-                    }
-                })
-                if(this.isHaveClassName.active1 != 'active1') {
-                    MessageBox('您好', '请选择正确的商品规格')
-                }else {
-                    var obj = {
-                        uuid: this.$store.getters.getLoginInfo.userInfo.uuid,
-                        goodsId: this.$route.query.goodsId,
-                        goodsNumber: this.count,
-                        goodsPrice: this.checkedGoods.price,
-                        goodsSpec: this.checkedGoods.type + this.checkedGoods.size
-                    }
-                    axios.post('/pdd/createShoppingCart',obj).then((res) =>{
-                        if(res.data == 'ok') {
-                            MessageBox.confirm('成功加入，是否前去查看?').then(() =>{
-                                this.$router.push({path:'/shopCart'})
-                            }).catch(() =>{
-
-                            })
+                    this.$refs.size.forEach((item,index) =>{
+                        if(item.className == 'active2') {
+                            this.isHaveClassName.active2 = item.className
+                            return
                         }
-                    }).catch((e) =>{
-                        console.log(e)
                     })
+                    if(this.isHaveClassName.active1 != 'active1' ) {
+                        MessageBox('您好', '请选择正确的商品规格')
+                    }else if(this.isHaveClassName.active2 != 'active2') {
+                        MessageBox('您好', '请选择正确的商品规格')
+                    }else {
+                        var obj = {
+                            uuid: this.$store.getters.getLoginInfo.userInfo.uuid,
+                            goodsId: this.$route.query.goodsId,
+                            goodsNumber: this.count,
+                            goodsPrice: this.checkedGoods.price,
+                            goodsSpec: this.checkedGoods.type + this.checkedGoods.size
+                        }
+                        axios.post('/pdd/createShoppingCart',obj).then((res) =>{
+                            if(res.data == 'ok') {
+                                MessageBox.confirm('成功加入，是否前去查看?').then(() =>{
+                                    this.$router.push({path:'/shopCart'})
+                                }).catch(() =>{
+
+                                })
+                            }
+                        }).catch((e) =>{
+                            console.log(e)
+                        })
+                    }
                 }
+                if(!this.$refs.size){
+                    this.$refs.test.forEach((item,index) =>{
+                        if(item.className == 'active1') {
+                            this.isHaveClassName.active1 = item.className
+                            return
+                        }
+                    })
+                    if(this.isHaveClassName.active1 != 'active1') {
+                        MessageBox('您好', '请选择正确的商品规格')
+                    }else {
+                        var obj = {
+                            uuid: this.$store.getters.getLoginInfo.userInfo.uuid,
+                            goodsId: this.$route.query.goodsId,
+                            goodsNumber: this.count,
+                            goodsPrice: this.checkedGoods.price,
+                            goodsSpec: this.checkedGoods.type + this.checkedGoods.size
+                        }
+                        axios.post('/pdd/createShoppingCart',obj).then((res) =>{
+                            if(res.data == 'ok') {
+                                MessageBox.confirm('成功加入，是否前去查看?').then(() =>{
+                                    this.$router.push({path:'/shopCart'})
+                                }).catch(() =>{
+
+                                })
+                            }
+                        }).catch((e) =>{
+                            console.log(e)
+                        })
+                    }
+                }
+            }else {
+                MessageBox.confirm('用户尚未登陆，是否前去登陆').then(() =>{
+                    this.$router.push({path:'/login'})
+                }).catch(() =>{
+
+                })
             }
         },
         buyNow() {  // 立即购买
-            
-            if(this.$refs.size&&this.$refs.test){
-                this.$refs.test.forEach((item,index) => {
-                    if(item.className == 'active1') {
-                        this.isHaveClassName.active1 = item.className
-                        return
-                    }
-                })
-                this.$refs.size.forEach((item,index) =>{
-                    if(item.className == 'active2') {
-                        this.isHaveClassName.active2 = item.className
-                        return
-                    }
-                })
-                if(this.isHaveClassName.active1 != 'active1' ) {
-                     MessageBox('您好', '请选择正确的商品规格')
-                }else if(this.isHaveClassName.active2 != 'active2') {
-                    MessageBox('您好', '请选择正确的商品规格')
-                }else {
-                    var goodsId = []
-                    var goodsNumber = []
-                    var goodsSpec = []
-                    goodsId.push(this.$route.query.goodsId)
-                    goodsNumber.push(this.count)
-                    goodsSpec.push(this.checkedGoods.type + this.checkedGoods.size)
-                    var orderMoney = this.count * this.checkedGoods.price
-                    var settlementInfo = {
-                        buyerId: this.$store.getters.getLoginInfo.userInfo.uuid,
-                        goodsId: goodsId,
-                        goodsNumber: goodsNumber,
-                        goodsSpec: goodsSpec,
-                        orderMoney: orderMoney,
-                        payStatus: 1,
-                        receiverAddress: this._getDefaultAddress.address,
-                        receiverCity: this._getDefaultAddress.provinces.cityList[0].cityId,
-                        receiverDistrict: this._getDefaultAddress.provinces.cityList[0].districtList[0].districtId,
-                        receiverMobile: this._getDefaultAddress.mobile ,
-                        receiverName: this._getDefaultAddress.consigner,
-                        receiverProvince: this._getDefaultAddress.provinces.provinceId,
-                        userName: this.$store.getters.getLoginInfo.userInfo.userName
-                    }
-
-                    axios.post('/pdd/createOrder',settlementInfo).then((res) =>{
-                        if(res.data.code == 1) {
-                            MessageBox.confirm('成功购买是否前去我的订单查看？').then(action => {
-                                this.$router.push({path:'/orders/allOrders',query:{uuid:this.$store.getters.getLoginInfo.userInfo.uuid}})
-                            }).catch((e) =>{
-                                console.log(e)
-                            })
-                        }else if(res.data.code == 3) {
-                            MessageBox.confirm('购买失败，您的余额不足！是否前去我的订单付款？').then(action => {
-                                this.$router.push({path:'/orders/allOrders',query:{uuid:this.$store.getters.getLoginInfo.userInfo.uuid}})
-                            }).catch((e) =>{
-                                console.log(e)
-                            })
+            if(this.getLoginInfo.isLogin) {
+                if(this.$refs.size&&this.$refs.test){
+                    this.$refs.test.forEach((item,index) => {
+                        if(item.className == 'active1') {
+                            this.isHaveClassName.active1 = item.className
+                            return
                         }
-                        
                     })
-                    
-                }
-            }
-            if(!this.$refs.size){
-                this.$refs.test.forEach((item,index) =>{
-                    if(item.className == 'active1') {
-                        this.isHaveClassName.active1 = item.className
-                        return
-                    }
-                })
-                if(this.isHaveClassName.active1 != 'active1') {
-                    MessageBox('您好', '请选择正确的商品规格')
-                }else {
-                    var goodsId = []
-                    var goodsNumber = []
-                    var goodsSpec = []
-                    goodsId.push(this.$route.query.goodsId)
-                    goodsNumber.push(this.count)
-                    goodsSpec.push(this.checkedGoods.type + this.checkedGoods.size)
-                    var orderMoney = this.count * this.checkedGoods.price
-                    var settlementInfo = {
-                        buyerId: this.$store.getters.getLoginInfo.userInfo.uuid,
-                        goodsId: goodsId,
-                        goodsNumber: goodsNumber,
-                        goodsSpec: goodsSpec,
-                        orderMoney: orderMoney,
-                        payStatus: 1,
-                        receiverAddress: this._getDefaultAddress.address,
-                        receiverCity: this._getDefaultAddress.provinces.cityList[0].cityId,
-                        receiverDistrict: this._getDefaultAddress.provinces.cityList[0].districtList[0].districtId,
-                        receiverMobile: this._getDefaultAddress.mobile ,
-                        receiverName: this._getDefaultAddress.consigner,
-                        receiverProvince: this._getDefaultAddress.provinces.provinceId,
-                        userName: this.$store.getters.getLoginInfo.userInfo.userName
-                    }
-
-                    axios.post('/pdd/createOrder',settlementInfo).then((res) =>{
-                        Indicator.open('购买中...')
-                        if(res.data.code == 1) {
-                            MessageBox.confirm('成功购买是否前去我的订单查看？').then(action => {
-                                Indicator.close()
-                                this.$router.push({path:'/orders/allOrders',query:{uuid:this.$store.getters.getLoginInfo.userInfo.uuid}})
-                            }).catch((e) =>{
-                                console.log(e)
-                            })
-                        }else if(res.data.code == 3) {
-                            MessageBox.confirm('购买失败，您的余额不足！是否前去我的订单付款？').then(action => {
-                                Indicator.close()
-                                this.$router.push({path:'/orders/allOrders',query:{uuid:this.$store.getters.getLoginInfo.userInfo.uuid}})
-                            }).catch((e) =>{
-                                console.log(e)
-                            })
+                    this.$refs.size.forEach((item,index) =>{
+                        if(item.className == 'active2') {
+                            this.isHaveClassName.active2 = item.className
+                            return
                         }
-                        
                     })
+                    if(this.isHaveClassName.active1 != 'active1' ) {
+                        MessageBox('您好', '请选择正确的商品规格')
+                    }else if(this.isHaveClassName.active2 != 'active2') {
+                        MessageBox('您好', '请选择正确的商品规格')
+                    }else {
+                        var goodsId = []
+                        var goodsNumber = []
+                        var goodsSpec = []
+                        goodsId.push(this.$route.query.goodsId)
+                        goodsNumber.push(this.count)
+                        goodsSpec.push(this.checkedGoods.type + this.checkedGoods.size)
+                        var orderMoney = this.count * this.checkedGoods.price
+                        var settlementInfo = {
+                            buyerId: this.$store.getters.getLoginInfo.userInfo.uuid,
+                            goodsId: goodsId,
+                            goodsNumber: goodsNumber,
+                            goodsSpec: goodsSpec,
+                            orderMoney: orderMoney,
+                            payStatus: 1,
+                            receiverAddress: this._getDefaultAddress.address,
+                            receiverCity: this._getDefaultAddress.provinces.cityList[0].cityId,
+                            receiverDistrict: this._getDefaultAddress.provinces.cityList[0].districtList[0].districtId,
+                            receiverMobile: this._getDefaultAddress.mobile ,
+                            receiverName: this._getDefaultAddress.consigner,
+                            receiverProvince: this._getDefaultAddress.provinces.provinceId,
+                            userName: this.$store.getters.getLoginInfo.userInfo.userName
+                        }
+
+                        axios.post('/pdd/createOrder',settlementInfo).then((res) =>{
+                            if(res.data.code == 1) {
+                                MessageBox.confirm('成功购买是否前去我的订单查看？').then(action => {
+                                    this.$router.push({path:'/orders/allOrders',query:{uuid:this.$store.getters.getLoginInfo.userInfo.uuid}})
+                                }).catch((e) =>{
+                                    console.log(e)
+                                })
+                            }else if(res.data.code == 3) {
+                                MessageBox.confirm('购买失败，您的余额不足！是否前去我的订单付款？').then(action => {
+                                    this.$router.push({path:'/orders/allOrders',query:{uuid:this.$store.getters.getLoginInfo.userInfo.uuid}})
+                                }).catch((e) =>{
+                                    console.log(e)
+                                })
+                            }
+                            
+                        })
+                        
+                    }
                 }
+                if(!this.$refs.size){
+                    this.$refs.test.forEach((item,index) =>{
+                        if(item.className == 'active1') {
+                            this.isHaveClassName.active1 = item.className
+                            return
+                        }
+                    })
+                    if(this.isHaveClassName.active1 != 'active1') {
+                        MessageBox('您好', '请选择正确的商品规格')
+                    }else {
+                        var goodsId = []
+                        var goodsNumber = []
+                        var goodsSpec = []
+                        goodsId.push(this.$route.query.goodsId)
+                        goodsNumber.push(this.count)
+                        goodsSpec.push(this.checkedGoods.type + this.checkedGoods.size)
+                        var orderMoney = this.count * this.checkedGoods.price
+                        var settlementInfo = {
+                            buyerId: this.$store.getters.getLoginInfo.userInfo.uuid,
+                            goodsId: goodsId,
+                            goodsNumber: goodsNumber,
+                            goodsSpec: goodsSpec,
+                            orderMoney: orderMoney,
+                            payStatus: 1,
+                            receiverAddress: this._getDefaultAddress.address,
+                            receiverCity: this._getDefaultAddress.provinces.cityList[0].cityId,
+                            receiverDistrict: this._getDefaultAddress.provinces.cityList[0].districtList[0].districtId,
+                            receiverMobile: this._getDefaultAddress.mobile ,
+                            receiverName: this._getDefaultAddress.consigner,
+                            receiverProvince: this._getDefaultAddress.provinces.provinceId,
+                            userName: this.$store.getters.getLoginInfo.userInfo.userName
+                        }
+
+                        axios.post('/pdd/createOrder',settlementInfo).then((res) =>{
+                            Indicator.open('购买中...')
+                            if(res.data.code == 1) {
+                                MessageBox.confirm('成功购买是否前去我的订单查看？').then(action => {
+                                    Indicator.close()
+                                    this.$router.push({path:'/orders/allOrders',query:{uuid:this.$store.getters.getLoginInfo.userInfo.uuid}})
+                                }).catch((e) =>{
+                                    console.log(e)
+                                })
+                            }else if(res.data.code == 3) {
+                                MessageBox.confirm('购买失败，您的余额不足！是否前去我的订单付款？').then(action => {
+                                    Indicator.close()
+                                    this.$router.push({path:'/orders/allOrders',query:{uuid:this.$store.getters.getLoginInfo.userInfo.uuid}})
+                                }).catch((e) =>{
+                                    console.log(e)
+                                })
+                            }
+                            
+                        })
+                    }
+                }
+            }else {
+                MessageBox.confirm('用户尚未登陆，是否前去登陆').then(() =>{
+                    this.$router.push({path:'/login'})
+                }).catch(() =>{
+
+                })
             }
         },
         getDefaultAddress() {
@@ -339,6 +354,9 @@ export default {
          _getDefaultAddress() {  // 默认地址
             return this.$store.getters.getDefaultAddress
         },
+        getLoginInfo() {  // 获取登陆信息
+            return this.$store.getters.getLoginInfo
+        }
     }
 }
 </script>

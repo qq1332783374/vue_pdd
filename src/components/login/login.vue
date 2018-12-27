@@ -92,7 +92,7 @@ export default {
             }
         },
         _back() {  // 返回
-            history.back(-1)
+            this.$router.push({path:'/home'})
         },
 
     },

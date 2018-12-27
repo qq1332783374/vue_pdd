@@ -33,12 +33,12 @@
                         </div>
                         <ul class="phone-type" v-if="item.name == '手机'">
                             <li v-for="(mobile,index3) in _getCategoryAndGoods.goodsBrandList" :key="index3">
-                                <img :src="'http://192.168.22.33:8080'+mobile.goodsBrandImg" :alt="mobile.title">
+                                <img :src="'http://cloudcom.org.cn'+mobile.goodsBrandImg" :alt="mobile.title">
                             </li>
                         </ul>
                         <ul class="shops-items">
                             <li v-for="(goods,index1) in item.goodsCategoryDetails" :key="index1">
-                                <img :src="'http://192.168.22.33:8080'+goods.icon" :alt="goods.title">
+                                <img :src="'http://cloudcom.org.cn'+goods.icon" :alt="goods.title">
                                 <span>
                                     {{goods.title}}
                                 </span>

@@ -193,7 +193,6 @@ const actions = {
     },
     settlement(ctx, obj) { // 结算
         var url = '/pdd/createOrder'
-        console.log(obj)
         axios.post(url, obj.settlementInfo).then((res) =>{
             if(res.data.code == 1) {
                 // 成功结算删除购物车
